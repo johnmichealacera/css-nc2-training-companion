@@ -132,6 +132,7 @@ export default function COC1Page() {
       description: 'Installing and configuring Windows/Linux',
       duration: '8 hours',
       topics: ['OS Selection', 'Installation Process', 'Driver Installation', 'Updates'],
+      videoUrl: 'https://youtu.be/7ds3IcpNCXY?si=5UYQ6X59JXUpCL8Q',
       practiceContent: {
         title: 'Windows Server Installation',
         type: 'B',
@@ -191,6 +192,7 @@ export default function COC1Page() {
       description: 'Installing and configuring applications',
       duration: '6 hours',
       topics: ['Office Applications', 'Security Software', 'Utility Programs', 'Optimization'],
+      videoUrl: 'https://www.youtube.com/watch?v=CagoNA-cIi0',
       practiceContent: {
         title: 'Application Software Installation',
         type: 'A',
@@ -401,7 +403,10 @@ export default function COC1Page() {
                           <iframe
                             id={`video-iframe-${module.id}`}
                             className="absolute top-0 left-0 w-full h-full rounded-lg"
-                            src={module.videoUrl.replace('watch?v=', 'embed/')}
+                            src={module.videoUrl.includes('youtu.be') 
+                              ? `https://www.youtube.com/embed/${module.videoUrl.split('youtu.be/')[1].split('?')[0]}`
+                              : module.videoUrl.replace('watch?v=', 'embed/').split('&')[0]
+                            }
                             title={`${module.title} Video Tutorial`}
                             frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
