@@ -3,6 +3,14 @@
 import { useEffect } from 'react'
 import Link from 'next/link'
 
+// Declare gtag function for TypeScript
+declare global {
+  interface Window {
+    gtag: (...args: unknown[]) => void
+    dataLayer: unknown[]
+  }
+}
+
 export default function TestAnalyticsPage() {
   useEffect(() => {
     // Test custom event
