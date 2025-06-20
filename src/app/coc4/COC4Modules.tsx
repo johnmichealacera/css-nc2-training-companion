@@ -121,7 +121,7 @@ export default function COC4Modules() {
               'Select "Save on a Network" then "Browse"',
               'Select "Save on a network", click "Browse"',
               'Select "Server Name", expand server, select "Backup and restore" folder',
-              'Enter network credentials: Username (BGFCCSS\\Administrator), Password (BGFC@12345)',
+              'Enter network credentials: Username (BGFCCSS\\Administrator), Password (BGFC@12345) (Use only for training/demo purposes. Do not use in real-world systems.)',
               'Click "Next", select "Let me choose"',
               'Select drive path (e.g., drive "D")',
               'Expand drive D and check/select "Backup and restore" folder',

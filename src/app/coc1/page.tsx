@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import { 
   Computer, 
   ArrowLeft, 
-  BookOpen,
+  BookOpen, 
   CheckCircle,
   Clock,
   Users,

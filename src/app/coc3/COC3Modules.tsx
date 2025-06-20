@@ -98,7 +98,7 @@ export default function COC3Modules() {
             'Click promote on Active Directory Domain Services notification',
             'Select Add New Forest',
             'Set root domain name to "bgfccss.com"',
-            'Set password to "Admin@12345"',
+            'Set password to "Admin@12345" (Use only for training/demo purposes. Do not use in real-world systems.)',
             'Click Install'
           ]
         },
@@ -168,8 +168,8 @@ export default function COC3Modules() {
             'Right click on "bgfccss.com", select New, click Organizational Unit',
             'Name it "Redirection OU"',
             'Under "Redirection OU", create two User accounts:',
-            'Username: win10, Password: Admin@123456789',
-            'Username: win11, Password: Admin@123456789'
+            'Username: win10, Password: Admin@123456789 (Use only for training/demo purposes. Do not use in real-world systems.)',
+            'Username: win11, Password: Admin@123456789 (Use only for training/demo purposes. Do not use in real-world systems.)'
           ]
         }
       }
@@ -210,7 +210,7 @@ export default function COC3Modules() {
             'Select Computer Name tab, select Change',
             'Select Domain and type: "bgfccss.com"',
             'Enter administrator credentials:',
-            'Username: Administrator, Password: BGFCCSS@2024',
+            'Username: Administrator, Password: BGFCCSS@2025 (Use only for training/demo purposes. Do not use in real-world systems.)',
             'Restart computer after joining'
           ]
         },
@@ -218,11 +218,11 @@ export default function COC3Modules() {
           title: 'User Account Login',
           steps: [
             'Login using Administrator Account:',
-            'Username: Administrator, Password: BGFCCSS@2024',
+            'Username: Administrator, Password: BGFCCSS@2025 (Use only for training/demo purposes. Do not use in real-world systems.)',
             'Switch user account via CTRL+ALT+DELETE',
             'Select switch user, enter user credentials:',
-            'Desktop: Username: win10, Password: Admin@123456789',
-            'Laptop: Username: win11, Password: Admin@123456789',
+            'Desktop: Username: win10, Password: Admin@123456789 (Use only for training/demo purposes. Do not use in real-world systems.)',
+            'Laptop: Username: win11, Password: Admin@123456789 (Use only for training/demo purposes. Do not use in real-world systems.)',
             'Perform gpupdate/force command',
             'Test folder redirection configuration'
           ]

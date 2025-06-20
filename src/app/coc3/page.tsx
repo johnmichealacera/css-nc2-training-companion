@@ -367,4 +367,4 @@ export default function COC3Page() {
       <Footer />
     </div>
   )
-}
+} 
