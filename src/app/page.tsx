@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Metadata } from 'next'
 import { 
   Computer, 
   Network, 
@@ -11,6 +12,34 @@ import {
   ChevronRight
 } from 'lucide-react'
 import Footer from '@/components/Footer'
+
+export const metadata: Metadata = {
+  title: 'CSS NC II Training Companion App - Master Computer Systems Servicing',
+  description: 'Master Computer Systems Servicing with our comprehensive training companion. Prepare for TESDA certification with hands-on learning and expert guidance in computer hardware, networking, server configuration, and system maintenance.',
+  keywords: 'CSS NC II, Computer Systems Servicing, TESDA, Training, Assessment, Computer Hardware, Networking, Server Configuration, System Maintenance, IT Certification',
+  openGraph: {
+    title: 'CSS NC II Training Companion App - Master Computer Systems Servicing',
+    description: 'Master Computer Systems Servicing with our comprehensive training companion. Prepare for TESDA certification with hands-on learning and expert guidance.',
+    url: 'https://css-nc2-companion.vercel.app/',
+    siteName: 'CSS NC II Training Companion App',
+    images: [
+      {
+        url: '/img/facebook_meta_bg.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'CSS NC II Training Companion App - Master Computer Systems Servicing',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'CSS NC II Training Companion App - Master Computer Systems Servicing',
+    description: 'Master Computer Systems Servicing with our comprehensive training companion. Prepare for TESDA certification with hands-on learning and expert guidance.',
+    images: ['/img/facebook_meta_bg.jpg'],
+  },
+};
 
 export default function Home() {
   const coreCompetencies = [

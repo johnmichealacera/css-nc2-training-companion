@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Metadata } from 'next'
 import { 
   Info, 
   ArrowLeft, 
@@ -10,6 +11,34 @@ import {
   CheckCircle
 } from 'lucide-react'
 import Footer from '@/components/Footer'
+
+export const metadata: Metadata = {
+  title: 'About - CSS NC II Training Companion App',
+  description: 'Learn about the CSS NC II Training Companion App, a comprehensive training solution for Computer Systems Servicing NC II assessment preparation. Discover our mission and training approach.',
+  keywords: 'About, CSS NC II, Training Companion, Computer Systems Servicing, TESDA, Training Mission, Assessment Preparation',
+  openGraph: {
+    title: 'About - CSS NC II Training Companion App',
+    description: 'Learn about the CSS NC II Training Companion App, a comprehensive training solution for Computer Systems Servicing NC II assessment preparation.',
+    url: 'https://css-nc2-companion.vercel.app/about',
+    siteName: 'CSS NC II Training Companion App',
+    images: [
+      {
+        url: '/img/meta-about.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'About CSS NC II Training Companion App',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About - CSS NC II Training Companion App',
+    description: 'Learn about the CSS NC II Training Companion App, a comprehensive training solution for Computer Systems Servicing NC II assessment preparation.',
+    images: ['/img/meta-about.jpg'],
+  },
+};
 
 export default function AboutPage() {
   const features = [
