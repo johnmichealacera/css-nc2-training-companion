@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Metadata } from 'next'
 import { 
   BookOpen, 
   ArrowLeft, 
@@ -8,6 +9,34 @@ import {
   AlertCircle
 } from 'lucide-react'
 import Footer from '@/components/Footer'
+
+export const metadata: Metadata = {
+  title: 'Glossary - CSS NC II Training Companion App',
+  description: 'Comprehensive glossary of Computer Systems Servicing NC II terms and definitions. Find explanations for technical terms, acronyms, and concepts used in CSS NC II training.',
+  keywords: 'Glossary, CSS NC II, Computer Systems Servicing, Technical Terms, Definitions, Acronyms, Training Concepts, TESDA',
+  openGraph: {
+    title: 'Glossary - CSS NC II Training Companion App',
+    description: 'Comprehensive glossary of Computer Systems Servicing NC II terms and definitions. Find explanations for technical terms and concepts.',
+    url: 'https://css-nc2-companion.vercel.app/glossary',
+    siteName: 'CSS NC II Training Companion App',
+    images: [
+      {
+        url: '/img/meta-glossary.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'CSS NC II Training Glossary',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Glossary - CSS NC II Training Companion App',
+    description: 'Comprehensive glossary of Computer Systems Servicing NC II terms and definitions. Find explanations for technical terms and concepts.',
+    images: ['/img/meta-glossary.jpg'],
+  },
+};
 
 export default function GlossaryPage() {
   const glossaryTerms = [
@@ -272,32 +301,150 @@ export default function GlossaryPage() {
           
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-blue-50 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Online References</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">🔗 Online References</h3>
               <ul className="space-y-2 text-sm text-gray-600">
-                <li>• Microsoft Documentation</li>
-                <li>• Cisco Learning Network</li>
-                <li>• CompTIA Resources</li>
-                <li>• Network World</li>
+                <li>
+                  <a 
+                    href="https://learn.microsoft.com/en-us/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
+                    • Microsoft Documentation
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://learningnetwork.cisco.com/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
+                    • Cisco Learning Network
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://www.comptia.org/training/resources" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
+                    • CompTIA Resources
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://www.networkworld.com/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
+                    • Network World
+                  </a>
+                </li>
               </ul>
             </div>
             
             <div className="bg-green-50 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Practice Tools</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">🧪 Practice Tools</h3>
               <ul className="space-y-2 text-sm text-gray-600">
-                <li>• Virtual Labs</li>
-                <li>• Network Simulators</li>
-                <li>• Hardware Simulators</li>
-                <li>• Practice Tests</li>
+                <li>
+                  <a 
+                    href="https://www.netacad.com/courses/packet-tracer" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-green-600 hover:text-green-800 hover:underline"
+                  >
+                    • Cisco Packet Tracer (via NetAcad)
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://www.boson.com/netsim-cisco-network-simulator" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-green-600 hover:text-green-800 hover:underline"
+                  >
+                    • Boson NetSim (Free Trial)
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://www.virtualbox.org/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-green-600 hover:text-green-800 hover:underline"
+                  >
+                    • VirtualBox (Virtualization Tool)
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://www.gns3.com/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-green-600 hover:text-green-800 hover:underline"
+                  >
+                    • GNS3 (Graphical Network Simulator)
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://www.examcompass.com/comptia/a-plus-certification/free-a-plus-practice-tests" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-green-600 hover:text-green-800 hover:underline"
+                  >
+                    • ExamCompass Practice Tests
+                  </a>
+                </li>
               </ul>
             </div>
             
             <div className="bg-purple-50 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Certification Prep</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">📘 Certification Prep</h3>
               <ul className="space-y-2 text-sm text-gray-600">
-                <li>• TESDA Guidelines</li>
-                <li>• Assessment Criteria</li>
-                <li>• Study Materials</li>
-                <li>• Mock Exams</li>
+                <li>
+                  <a 
+                    href="https://tesda.gov.ph/Downloadables/TR_CSS%20NC%20II.pdf" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-purple-600 hover:text-purple-800 hover:underline"
+                  >
+                    • TESDA CSS NC II Competency Standards PDF
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://tesda.gov.ph/Assessment" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-purple-600 hover:text-purple-800 hover:underline"
+                  >
+                    • TESDA Assessment Criteria Page
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://e-tesda.gov.ph/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-purple-600 hover:text-purple-800 hover:underline"
+                  >
+                    • e-TESDA Online Courses
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://www.gocertify.com/quizzes/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-purple-600 hover:text-purple-800 hover:underline"
+                  >
+                    • GoCertify Mock Exams
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
