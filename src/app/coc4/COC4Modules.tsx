@@ -183,7 +183,7 @@ export default function COC4Modules() {
       description: 'Diagnosing and fixing system and network problems',
       duration: '8 hours',
       topics: ['Problem Diagnosis', 'System Repair', 'Network Troubleshooting', 'Performance Optimization'],
-      videoUrl: 'https://www.youtube.com/watch?v=y9kXxr1vlF8',
+      videoUrl: 'https://www.youtube.com/watch?v=AhCWa2-75y8',
       practiceContent: {
         title: 'System Troubleshooting and Repair',
         type: 'B',
@@ -204,7 +204,7 @@ export default function COC4Modules() {
       description: 'Creating and maintaining maintenance documentation',
       duration: '6 hours',
       topics: ['Maintenance Logs', 'Repair Reports', 'System Documentation', 'Performance Reports'],
-      videoUrl: 'https://www.youtube.com/watch?v=y9kXxr1vlF8',
+      // videoUrl: '', // this is not available
       practiceContent: {
         title: 'Maintenance Documentation',
         type: 'A',

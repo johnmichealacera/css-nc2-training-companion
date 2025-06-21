@@ -35,7 +35,7 @@ export default function COC1Modules() {
       topics: ['CPU, RAM, Motherboard', 'Storage Devices', 'Power Supply', 'Peripherals'],
       videoUrl: 'https://www.youtube.com/watch?v=B1r0yKSdQmo',
       practiceContent: {
-        title: 'Computer Assembly and Disassembly',
+        title: 'Computer Hardware Components',
         type: 'A',
         objectives: 'Apply OH&S policies and procedures, identify tools and equipment, identify computer hardware components and their functions, configure BIOS setup',
         materials: ['Protective eyewear', 'Anti-Static Wrist', 'Screw Drivers (assorted)', 'Flashlight'],
@@ -101,33 +101,80 @@ export default function COC1Modules() {
     {
       id: 'module2',
       title: 'System Assembly and Disassembly',
-      description: 'Hands-on practice with computer assembly',
+      description: 'Hands-on practice with safely disassembling and reassembling a computer system.',
       duration: '6 hours',
-      topics: ['Safety Procedures', 'Component Installation', 'Cable Management', 'Testing'],
+      topics: ['Safety Procedures', 'Disassembly Process', 'Component Identification', 'Assembly Techniques'],
       videoUrl: 'https://www.youtube.com/watch?v=19G73qbJ4tg',
       practiceContent: {
-        title: 'Create Bootable Media',
-        type: 'B',
-        objectives: 'Create portable bootable image or installer using different media devices in accordance with software manufacturer instructions',
-        materials: ['Operating System ISO', 'Universal Serial Bus (USB)', 'DVD Disk', 'Rufus/ISO image tool'],
+        title: 'System Assembly and Disassembly',
+        type: 'A',
+        objectives: 'Demonstrate safety procedures, identify internal hardware components, and perform proper disassembly and reassembly of a computer system.',
+        materials: ['Anti-Static Wrist Strap', 'Screwdrivers (assorted)', 'Protective eyewear', 'Computer system unit'],
         procedures: [
-          'Download and install Rufus application',
-          'Insert the bootable media or USB',
-          'Select and choose Windows (7,10) operating system',
-          'Select start and configure the bootable device in BIOS',
-          'Test and boot using USB'
+          'Wear PPE and anti-static wrist strap before handling internal components',
+          'Turn off and unplug the system unit from power and peripherals',
+          'Remove the case cover carefully',
+          'Document and remove key components (RAM, HDD/SSD, PSU, GPU, etc.) using proper tools and handling',
+          'Inspect and identify each component removed',
+          'Reassemble the computer system by reinstalling each component properly',
+          'Ensure all internal cables are connected and managed properly',
+          'Power on the system and verify successful reassembly',
+          'Access BIOS to verify hardware detection'
         ],
-        rufusSteps: [
-          'Download Rufus from https://rufus.ie/',
-          'Plug in USB drive and select it in Rufus',
-          'Click "Select" and choose your ISO file',
-          'Select "MBR" partition scheme and "BIOS or UEFI" target system',
-          'Set volume label and ensure "Quick Format" is selected',
-          'Click "Start" and wait for completion',
-          'Test the bootable USB drive'
-        ]
+        components: [
+          {
+            name: 'System Unit Case',
+            description: 'Enclosure that contains and protects internal components',
+            parts: ['Side panels', 'Drive bays', 'Front panel connectors']
+          },
+          {
+            name: 'Motherboard',
+            description: 'Main PCB holding CPU, memory, and expansion components',
+            parts: ['CPU Socket', 'RAM Slots', 'Power Connector', 'SATA Ports']
+          },
+          {
+            name: 'Processor (CPU)',
+            description: 'Handles processing instructions and tasks',
+            types: ['Intel', 'AMD']
+          },
+          {
+            name: 'RAM',
+            description: 'Temporary memory for system processes and active tasks',
+            features: ['DDR3/DDR4/DDR5', 'Dual Channel', 'Speed Ratings']
+          },
+          {
+            name: 'Storage Drive',
+            description: 'Stores OS and data; can be HDD or SSD',
+            types: ['SATA HDD', 'SATA SSD', 'NVMe M.2']
+          },
+          {
+            name: 'Power Supply Unit (PSU)',
+            description: 'Provides power to all internal components',
+            features: ['Modular/Non-Modular', 'Wattage', 'Voltage rails']
+          },
+          {
+            name: 'Cooling System',
+            description: 'Maintains optimal temperature for the CPU and other components',
+            types: ['Air Cooling', 'Liquid Cooling']
+          }
+        ],
+        biosInfo: {
+          title: 'BIOS Access and Settings',
+          description: 'Configure hardware-level settings after reassembly',
+          functions: [
+            'Verify component recognition (RAM, storage, CPU)',
+            'Set date and time',
+            'Adjust boot priority if needed'
+          ],
+          accessKeys: ['Del', 'F2', 'Esc', 'F10'],
+          setupSteps: [
+            'Power on the system and press the appropriate key repeatedly',
+            'Check system summary and verify hardware',
+            'Save and exit to boot into OS or bootable media'
+          ]
+        }
       }
-    },
+    },    
     {
       id: 'module3',
       title: 'Creating Bootable Media',
