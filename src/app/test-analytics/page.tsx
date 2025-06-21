@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 // Declare gtag function for TypeScript
@@ -11,8 +11,15 @@ declare global {
   }
 }
 
+// Force dynamic rendering to prevent prerendering issues
+export const dynamic = 'force-dynamic'
+
 export default function TestAnalyticsPage() {
+  const [isClient, setIsClient] = useState(false)
+
   useEffect(() => {
+    setIsClient(true)
+    
     // Test custom event
     if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
       window.gtag('event', 'test_event', {
@@ -33,6 +40,20 @@ export default function TestAnalyticsPage() {
       })
       console.log('Button click event sent to Google Analytics')
     }
+  }
+
+  // Show loading state during SSR
+  if (!isClient) {
+    return (
+      <div className="min-h-screen bg-gray-50 p-8">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-3xl font-bold mb-6">Google Analytics Test Page</h1>
+          <div className="bg-white rounded-lg p-6 shadow-sm">
+            <p>Loading...</p>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
