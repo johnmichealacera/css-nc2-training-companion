@@ -2,7 +2,7 @@
 
 A comprehensive web application designed to help students and professionals master Computer Systems Servicing and prepare for TESDA NC II certification.
 
-![CSS NC II Training](https://img.shields.io/badge/Version-1.0.0-blue.svg)
+![CSS NC II Training](https://img.shields.io/badge/Version-2.0.0-blue.svg)
 ![Next.js](https://img.shields.io/badge/Next.js-15.3.3-black.svg)
 ![React](https://img.shields.io/badge/React-19.0.0-blue.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)
@@ -201,6 +201,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Version**: 1.0.0  
-**Last Updated**: January 2025  
+**Version**: 2.0.0  
+**Last Updated**: June 2025  
 **Status**: Production Ready
