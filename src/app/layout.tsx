@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import { Suspense } from "react";
 import "./globals.css";
 import { AnalyticsTracker } from "./test-analytics/analytics-tracker";
 
@@ -101,7 +102,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AnalyticsTracker /> {/* Add this line */}
+        <Suspense fallback={null}>
+          <AnalyticsTracker />
+        </Suspense>
         <div className="min-h-screen bg-gray-50">
           {children}
         </div>
