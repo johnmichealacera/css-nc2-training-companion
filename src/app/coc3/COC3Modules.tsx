@@ -6,7 +6,9 @@ import {
   FileText, 
   CheckCircle,
   Clock,
-  ChevronRight
+  ChevronRight,
+  Award,
+  AlertTriangle
 } from 'lucide-react'
 
 export default function COC3Modules() {
@@ -35,6 +37,8 @@ export default function COC3Modules() {
       duration: '6 hours',
       topics: ['Set static IP address', 'Rename server computer', 'Configure Windows Firewall', 'Enable Remote Desktop', 'Disk Management Setup'],
       videoUrl: 'https://www.youtube.com/watch?v=2sH6dmVuBG4',
+      isAssessmentTask: false,
+      taskNumber: null,
       practiceContent: {
         title: 'Local Server Configuration',
         type: 'A',
@@ -75,6 +79,8 @@ export default function COC3Modules() {
       duration: '8 hours',
       topics: ['Install Active Directory Domain Services (AD DS)', 'Install DNS and DHCP', 'Promote to Domain Controller', 'Setup new forest: bgfccss.com', 'Configure DHCP scope and reverse lookup zones'],
       videoUrl: 'https://www.youtube.com/watch?v=_NT5RdF58Tg',
+      isAssessmentTask: false,
+      taskNumber: null,
       practiceContent: {
         title: 'Active Directory and User Management',
         type: 'B',
@@ -123,6 +129,8 @@ export default function COC3Modules() {
       duration: '10 hours',
       topics: ['Create Organizational Units', 'Add user accounts (e.g., win10, win11)', 'Share Redirection folder', 'Apply Folder Redirection using Group Policy', 'Test redirection from client machines'],
       videoUrl: 'https://www.youtube.com/watch?v=e9t5_VWlgkA',
+      isAssessmentTask: true,
+      taskNumber: 1,
       practiceContent: {
         title: 'Group Policy and Folder Redirection',
         type: 'B',
@@ -181,6 +189,8 @@ export default function COC3Modules() {
       duration: '6 hours',
       topics: ['Enable Remote Desktop on both server and clients', 'Connect to server from client', 'Remote into client from server', 'Switch between devices smoothly'],
       videoUrl: 'https://www.youtube.com/watch?v=vs1hhH2DfGc',
+      isAssessmentTask: true,
+      taskNumber: 2,
       practiceContent: {
         title: 'Domain Joining and Remote Desktop',
         type: 'B',
@@ -250,18 +260,56 @@ export default function COC3Modules() {
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Structured learning modules covering all aspects of server configuration and management.
           </p>
+          
+          {/* Assessment Tasks Notice */}
+          <div className="mt-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-lg p-4 max-w-4xl mx-auto">
+            <div className="flex items-center justify-center space-x-2 mb-2">
+              <AlertTriangle className="h-5 w-5 text-amber-600" />
+              <h3 className="text-lg font-semibold text-amber-800">Core Assessment Tasks</h3>
+            </div>
+            <p className="text-amber-700 text-sm">
+              <strong>Task 1:</strong> Folder Redirection & User Account Management (Module 3) | 
+              <strong> Task 2:</strong> Remote Desktop Management (Module 4)
+            </p>
+            <p className="text-amber-700 text-xs mt-1">
+              These modules will be thoroughly assessed hands-on during your TESDA evaluation.
+            </p>
+          </div>
         </div>
         
         <div className="space-y-6">
           {modules.map((module, index) => (
-            <div key={module.id} className="bg-white rounded-lg p-6 shadow-md">
+            <div 
+              key={module.id} 
+              className={`rounded-lg p-6 shadow-md transition-all duration-300 ${
+                module.isAssessmentTask 
+                  ? 'bg-gradient-to-r from-purple-50 to-indigo-50 border-2 border-purple-200 shadow-lg' 
+                  : 'bg-white'
+              }`}
+            >
               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between">
                 <div className="flex-1 mb-4 lg:mb-0">
                   <div className="flex items-center mb-3">
-                    <span className="bg-purple-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-4">
-                      {index + 1}
-                    </span>
-                    <h3 className="text-xl font-semibold text-gray-900">{module.title}</h3>
+                    {module.isAssessmentTask ? (
+                      <div className="flex items-center space-x-3">
+                        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold mr-2">
+                          <Award className="h-5 w-5" />
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                            TASK {module.taskNumber}
+                          </span>
+                          <h3 className="text-xl font-semibold text-gray-900">{module.title}</h3>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <span className="bg-purple-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-4">
+                          {index + 1}
+                        </span>
+                        <h3 className="text-xl font-semibold text-gray-900">{module.title}</h3>
+                      </>
+                    )}
                   </div>
                   <p className="text-gray-600 mb-4">{module.description}</p>
                   <div className="flex items-center text-sm text-gray-500 mb-4">
@@ -289,7 +337,11 @@ export default function COC3Modules() {
                   )}
                   <button 
                     onClick={() => setOpenPracticeModal(module.id)}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center"
+                    className={`px-4 py-2 rounded-lg transition-colors flex items-center justify-center ${
+                      module.isAssessmentTask 
+                        ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700' 
+                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                    }`}
                   >
                     <FileText className="h-4 w-4 mr-2" />
                     Practice
@@ -344,7 +396,14 @@ export default function COC3Modules() {
                   <div className="bg-white rounded-lg w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
                     <div className="p-4 sm:p-6">
                       <div className="flex justify-between items-center mb-6">
-                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 pr-2">{module.practiceContent?.title}</h3>
+                        <div className="flex items-center space-x-3">
+                          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 pr-2">{module.practiceContent?.title}</h3>
+                          {module.isAssessmentTask && (
+                            <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                              TASK {module.taskNumber}
+                            </span>
+                          )}
+                        </div>
                         <button 
                           onClick={() => setOpenPracticeModal(null)}
                           className="text-gray-500 hover:text-gray-700 flex-shrink-0"

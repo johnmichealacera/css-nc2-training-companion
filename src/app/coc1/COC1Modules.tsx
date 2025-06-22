@@ -5,7 +5,9 @@ import {
   Video, 
   FileText,
   Clock,
-  ChevronRight
+  ChevronRight,
+  Award,
+  AlertTriangle
 } from 'lucide-react'
 
 export default function COC1Modules() {
@@ -34,6 +36,8 @@ export default function COC1Modules() {
       duration: '4 hours',
       topics: ['CPU, RAM, Motherboard', 'Storage Devices', 'Power Supply', 'Peripherals'],
       videoUrl: 'https://www.youtube.com/watch?v=B1r0yKSdQmo',
+      isAssessmentTask: false,
+      taskNumber: null,
       practiceContent: {
         title: 'Computer Hardware Components',
         type: 'A',
@@ -105,6 +109,8 @@ export default function COC1Modules() {
       duration: '6 hours',
       topics: ['Safety Procedures', 'Disassembly Process', 'Component Identification', 'Assembly Techniques'],
       videoUrl: 'https://www.youtube.com/watch?v=19G73qbJ4tg',
+      isAssessmentTask: true,
+      taskNumber: 1,
       practiceContent: {
         title: 'System Assembly and Disassembly',
         type: 'A',
@@ -182,6 +188,8 @@ export default function COC1Modules() {
       duration: '4 hours',
       topics: ['Using Rufus to create bootable USB', 'Selecting ISO files (Windows Server)', 'Configuring BIOS/UEFI to boot from USB', 'Verifying Boot Media'],
       videoUrl: 'https://www.youtube.com/watch?v=7ds3IcpNCXY',
+      isAssessmentTask: true,
+      taskNumber: 2,
       practiceContent: {
         title: 'Create Bootable Media',
         type: 'B',
@@ -212,6 +220,8 @@ export default function COC1Modules() {
       duration: '6 hours',
       topics: ['Installation Process (Partitioning, Setup)', 'Setting Administrator Password', 'Driver Installation', 'Initial Post-Install Configuration'],
       videoUrl: 'https://www.youtube.com/watch?v=CagoNA-cIi0',
+      isAssessmentTask: true,
+      taskNumber: 2,
       practiceContent: {
         title: 'Windows Server Installation',
         type: 'B',
@@ -263,18 +273,56 @@ export default function COC1Modules() {
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Structured learning modules covering all aspects of computer system installation and configuration.
           </p>
+          
+          {/* Assessment Tasks Notice */}
+          <div className="mt-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-lg p-4 max-w-4xl mx-auto">
+            <div className="flex items-center justify-center space-x-2 mb-2">
+              <AlertTriangle className="h-5 w-5 text-amber-600" />
+              <h3 className="text-lg font-semibold text-amber-800">Core Assessment Tasks</h3>
+            </div>
+            <p className="text-amber-700 text-sm">
+              <strong>Task 1:</strong> System Assembly and Disassembly (Module 2) | 
+              <strong> Task 2:</strong> Bootable Media Creation & OS Installation (Modules 3 & 4)
+            </p>
+            <p className="text-amber-700 text-xs mt-1">
+              These modules will be thoroughly assessed hands-on during your TESDA evaluation.
+            </p>
+          </div>
         </div>
         
         <div className="space-y-6">
           {modules.map((module, index) => (
-            <div key={module.id} className="bg-white rounded-lg p-6 shadow-md">
+            <div 
+              key={module.id} 
+              className={`rounded-lg p-6 shadow-md transition-all duration-300 ${
+                module.isAssessmentTask 
+                  ? 'bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 shadow-lg' 
+                  : 'bg-white'
+              }`}
+            >
               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between">
                 <div className="flex-1 mb-4 lg:mb-0">
                   <div className="flex items-center mb-3">
-                    <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-4">
-                      {index + 1}
-                    </span>
-                    <h3 className="text-xl font-semibold text-gray-900">{module.title}</h3>
+                    {module.isAssessmentTask ? (
+                      <div className="flex items-center space-x-3">
+                        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold mr-2">
+                          <Award className="h-5 w-5" />
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                            TASK {module.taskNumber}
+                          </span>
+                          <h3 className="text-xl font-semibold text-gray-900">{module.title}</h3>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-4">
+                          {index + 1}
+                        </span>
+                        <h3 className="text-xl font-semibold text-gray-900">{module.title}</h3>
+                      </>
+                    )}
                   </div>
                   <p className="text-gray-600 mb-4">{module.description}</p>
                   <div className="flex items-center text-sm text-gray-500 mb-4">
@@ -300,7 +348,11 @@ export default function COC1Modules() {
                   </button>
                   <button 
                     onClick={() => setOpenPracticeModal(module.id)}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center"
+                    className={`px-4 py-2 rounded-lg transition-colors flex items-center justify-center ${
+                      module.isAssessmentTask 
+                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700' 
+                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                    }`}
                   >
                     <FileText className="h-4 w-4 mr-2" />
                     Practice
@@ -355,7 +407,14 @@ export default function COC1Modules() {
                   <div className="bg-white rounded-lg w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
                     <div className="p-4 sm:p-6">
                       <div className="flex justify-between items-center mb-6">
-                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 pr-2">{module.practiceContent?.title}</h3>
+                        <div className="flex items-center space-x-3">
+                          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 pr-2">{module.practiceContent?.title}</h3>
+                          {module.isAssessmentTask && (
+                            <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                              TASK {module.taskNumber}
+                            </span>
+                          )}
+                        </div>
                         <button 
                           onClick={() => setOpenPracticeModal(null)}
                           className="text-gray-500 hover:text-gray-700 flex-shrink-0"
@@ -470,8 +529,84 @@ export default function COC1Modules() {
                             </div>
                           )}
 
-                          {/* Rufus Steps for Module 2 */}
-                          {module.id === 'module2' && module.practiceContent.rufusSteps && (
+                          {/* Hardware Components for Module 2 */}
+                          {module.id === 'module2' && module.practiceContent.components && (
+                            <div>
+                              <h4 className="font-semibold text-gray-900 mb-3">Hardware Components:</h4>
+                              <div className="grid md:grid-cols-2 gap-4">
+                                {module.practiceContent.components.map((component, idx) => (
+                                  <div key={idx} className="bg-gray-50 rounded-lg p-4">
+                                    <h5 className="font-semibold text-gray-900 mb-2">{component.name}</h5>
+                                    <p className="text-gray-600 text-sm mb-3">{component.description}</p>
+                                    {component.parts && (
+                                      <div className="mb-3">
+                                        <span className="text-xs font-medium text-gray-900">Key Parts:</span>
+                                        <ul className="text-xs text-gray-700 mt-1">
+                                          {component.parts.map((part, partIdx) => (
+                                            <li key={partIdx}>• {part}</li>
+                                          ))}
+                                        </ul>
+                                      </div>
+                                    )}
+                                    {component.types && (
+                                      <div className="mb-3">
+                                        <span className="text-xs font-medium text-gray-900">Types:</span>
+                                        <ul className="text-xs text-gray-700 mt-1">
+                                          {component.types.map((type, typeIdx) => (
+                                            <li key={typeIdx}>• {type}</li>
+                                          ))}
+                                        </ul>
+                                      </div>
+                                    )}
+                                    {component.features && (
+                                      <div>
+                                        <span className="text-xs font-medium text-gray-900">Features:</span>
+                                        <ul className="text-xs text-gray-700 mt-1">
+                                          {component.features.map((feature, featureIdx) => (
+                                            <li key={featureIdx}>• {feature}</li>
+                                          ))}
+                                        </ul>
+                                      </div>
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* BIOS Information for Module 2 */}
+                          {module.id === 'module2' && module.practiceContent.biosInfo && (
+                            <div>
+                              <h4 className="font-semibold text-gray-900 mb-3">BIOS Information:</h4>
+                              <div className="bg-yellow-50 rounded-lg p-4">
+                                <h5 className="font-semibold text-yellow-900 mb-2">{module.practiceContent.biosInfo.title}</h5>
+                                <p className="text-yellow-800 mb-3">{module.practiceContent.biosInfo.description}</p>
+                                <div className="mb-3">
+                                  <span className="text-sm font-medium text-yellow-900">Functions:</span>
+                                  <ul className="text-sm text-yellow-800 mt-1 space-y-1">
+                                    {module.practiceContent.biosInfo.functions.map((func, idx) => (
+                                      <li key={idx}>• {func}</li>
+                                    ))}
+                                  </ul>
+                                </div>
+                                <div className="mb-3">
+                                  <span className="text-sm font-medium text-yellow-900">Access Keys:</span>
+                                  <p className="text-sm text-yellow-800 mt-1">{module.practiceContent.biosInfo.accessKeys.join(', ')}</p>
+                                </div>
+                                <div>
+                                  <span className="text-sm font-medium text-yellow-900">Setup Steps:</span>
+                                  <ol className="text-sm text-yellow-800 mt-1 space-y-1 list-decimal list-inside">
+                                    {module.practiceContent.biosInfo.setupSteps.map((step, idx) => (
+                                      <li key={idx}>{step}</li>
+                                    ))}
+                                  </ol>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Rufus Steps for Module 3 */}
+                          {module.id === 'module3' && module.practiceContent.rufusSteps && (
                             <div>
                               <h4 className="font-semibold text-gray-900 mb-3">Rufus Application Steps:</h4>
                               <div className="bg-green-50 rounded-lg p-4">
@@ -484,8 +619,8 @@ export default function COC1Modules() {
                             </div>
                           )}
 
-                          {/* OS Information for Module 3 */}
-                          {module.id === 'module3' && module.practiceContent.osInfo && (
+                          {/* OS Information for Module 4 */}
+                          {module.id === 'module4' && module.practiceContent.osInfo && (
                             <div>
                               <h4 className="font-semibold text-gray-900 mb-3">Operating System Information:</h4>
                               <div className="bg-purple-50 rounded-lg p-4">
