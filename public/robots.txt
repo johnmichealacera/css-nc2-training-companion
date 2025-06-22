@@ -1,4 +1,10 @@
+# *
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /test-analytics
 
+# Host
+Host: https://learncssnc2.academy
+
+# Sitemaps
 Sitemap: https://learncssnc2.academy/sitemap.xml

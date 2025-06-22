@@ -11,27 +11,9 @@ const nextConfig: NextConfig = {
     workerThreads: false,
     cpus: 1
   },
-  // Domain configuration
-  async rewrites() {
-    return [
-      {
-        source: '/sitemap.xml',
-        destination: '/api/sitemap',
-      },
-    ]
-  },
-  // Ensure proper handling of dynamic routes
+  // Security headers
   async headers() {
     return [
-      {
-        source: '/sitemap.xml',
-        headers: [
-          {
-            key: 'Content-Type',
-            value: 'application/xml',
-          },
-        ],
-      },
       {
         source: '/(.*)',
         headers: [
