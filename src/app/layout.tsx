@@ -4,6 +4,9 @@ import Script from "next/script";
 import { Suspense } from "react";
 import "./globals.css";
 import { AnalyticsTracker } from "./test-analytics/analytics-tracker";
+import BackToTop from "@/components/BackToTop";
+import ScrollProgress from "@/components/ScrollProgress";
+import KeyboardNav from "@/components/KeyboardNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -110,12 +113,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ScrollProgress />
+        <KeyboardNav />
         <Suspense fallback={null}>
           <AnalyticsTracker />
         </Suspense>
         <div className="min-h-screen bg-gray-50">
           {children}
         </div>
+        <BackToTop />
       </body>
     </html>
   );

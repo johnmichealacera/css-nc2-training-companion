@@ -12,6 +12,7 @@ import {
   ChevronRight
 } from 'lucide-react'
 import Footer from '@/components/Footer'
+import Navigation from '@/components/Navigation'
 
 export const metadata: Metadata = {
   title: 'CSS NC II Training Companion App - Master Computer Systems Servicing',
@@ -98,20 +99,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Navigation */}
-      <nav className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <Computer className="h-8 w-8 text-blue-600" />
-              <span className="ml-2 text-xl font-bold text-gray-900">CSS NC II Training</span>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Link href="/glossary" className="text-gray-600 hover:text-gray-900">Glossary</Link>
-              <Link href="/about" className="text-gray-600 hover:text-gray-900">About</Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
