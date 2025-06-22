@@ -27,14 +27,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://css-nc2-companion.vercel.app/'),
+  metadataBase: new URL('https://learncssnc2.academy/'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://css-nc2-companion.vercel.app/',
+    url: 'https://learncssnc2.academy/',
     siteName: 'CSS NC II Training Companion App',
     title: 'CSS NC II Training Companion App',
     description: 'A comprehensive training companion for Computer Systems Servicing NC II assessment preparation. Master computer hardware, networking, server configuration, and system maintenance.',
@@ -78,6 +78,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Favicon */}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
+        
+        {/* PWA Manifest */}
+        <link rel="manifest" href="/manifest.json" />
+        
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-1B58WX8K2R"

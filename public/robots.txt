@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://css-nc2-companion.vercel.app/sitemap.xml
+Sitemap: https://learncssnc2.academy/sitemap.xml

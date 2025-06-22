@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/test-analytics'], // Disallow test pages from being indexed
     },
-    sitemap: 'https://css-nc2-companion.vercel.app/sitemap.xml',
+    sitemap: 'https://learncssnc2.academy/sitemap.xml',
   }
 } 

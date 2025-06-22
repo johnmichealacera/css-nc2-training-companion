@@ -11,6 +11,15 @@ const nextConfig: NextConfig = {
     workerThreads: false,
     cpus: 1
   },
+  // Domain configuration
+  async rewrites() {
+    return [
+      {
+        source: '/sitemap.xml',
+        destination: '/api/sitemap',
+      },
+    ]
+  },
   // Ensure proper handling of dynamic routes
   async headers() {
     return [
@@ -20,6 +29,23 @@ const nextConfig: NextConfig = {
           {
             key: 'Content-Type',
             value: 'application/xml',
+          },
+        ],
+      },
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'origin-when-cross-origin',
           },
         ],
       },

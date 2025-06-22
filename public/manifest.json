@@ -1,0 +1,20 @@
+{
+  "name": "CSS NC II Training Companion",
+  "short_name": "CSS NC II",
+  "description": "Comprehensive training companion for Computer Systems Servicing NC II assessment preparation",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "training"],
+  "lang": "en",
+  "dir": "ltr"
+} 
