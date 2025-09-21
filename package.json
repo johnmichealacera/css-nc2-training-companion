@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@jmacera/back-to-top-component": "npm:@jsr/jmacera__back-to-top-component@^1.0.1",
     "framer-motion": "^12.18.1",
     "lucide-react": "^0.515.0",
     "next": "15.3.3",

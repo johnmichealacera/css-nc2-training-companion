@@ -4,7 +4,7 @@ import Script from "next/script";
 import { Suspense } from "react";
 import "./globals.css";
 import { AnalyticsTracker } from "./test-analytics/analytics-tracker";
-import BackToTop from "@/components/BackToTop";
+import BackToTop from "@jmacera/back-to-top-component";
 import ScrollProgress from "@/components/ScrollProgress";
 import KeyboardNav from "@/components/KeyboardNav";
 
