@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Script from "next/script";
 import { Suspense } from "react";
 import "./globals.css";
-import { AnalyticsTracker } from "./test-analytics/analytics-tracker";
+import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 import BackToTop from "@jmacera/back-to-top-component";
 import ScrollProgress from "@/components/ScrollProgress";
 import KeyboardNav from "@/components/KeyboardNav";
@@ -88,27 +87,6 @@ export default function RootLayout({
         
         {/* PWA Manifest */}
         <link rel="manifest" href="/manifest.json" />
-        
-        {/* Google Analytics */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-1B58WX8K2R"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-1B58WX8K2R', {
-              page_title: document.title,
-              page_location: window.location.href,
-              send_page_view: true
-            });
-            
-            // Debug logging
-            console.log('Google Analytics initialized with ID: G-1B58WX8K2R');
-          `}
-        </Script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

@@ -259,7 +259,8 @@ export default function COC4Modules() {
         <div className="space-y-6">
           {modules.map((module, index) => (
             <div 
-              key={module.id} 
+              key={module.id}
+              id={module.id}
               className={`rounded-lg p-6 shadow-md transition-all duration-300 ${
                 module.isAssessmentTask 
                   ? 'bg-gradient-to-r from-orange-50 to-red-50 border-2 border-orange-200 shadow-lg' 
@@ -307,6 +308,11 @@ export default function COC4Modules() {
                 <div className="flex flex-col sm:flex-row gap-2 lg:ml-6 lg:flex-shrink-0">
                   {module.videoUrl && (
                     <button 
+                      type="button"
+                      data-analytics="module_select"
+                      data-module-id={module.id}
+                      data-module-title={module.title}
+                      data-module-action="video"
                       onClick={() => setSelectedVideo(module.videoUrl)}
                       className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center"
                     >
@@ -315,6 +321,11 @@ export default function COC4Modules() {
                     </button>
                   )}
                   <button 
+                    type="button"
+                    data-analytics="module_select"
+                    data-module-id={module.id}
+                    data-module-title={module.title}
+                    data-module-action="practice"
                     onClick={() => setOpenPracticeModal(module.id)}
                     className={`px-4 py-2 rounded-lg transition-colors flex items-center justify-center ${
                       module.isAssessmentTask 

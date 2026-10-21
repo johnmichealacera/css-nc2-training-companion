@@ -5,11 +5,17 @@ import {
   User,
   MessageSquare
 } from 'lucide-react'
+import { contentGroupForPath, trackEvent, trackLead } from '@/lib/analytics'
 
 export default function ContactForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
+    const pagePath = window.location.pathname
+    trackEvent('contact_form_submit', {
+      page_path: pagePath,
+      content_group: contentGroupForPath(pagePath),
+    })
+    trackLead('contact_form')
     alert('Thank you for your message! I will get back to you soon.')
   }
 

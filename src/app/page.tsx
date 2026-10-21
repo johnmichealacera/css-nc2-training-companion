@@ -114,7 +114,9 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
-                href="/coc1" 
+                href="/coc1"
+                data-analytics="cta"
+                data-cta-label="start_learning"
                 className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
               >
                 Start Learning
@@ -200,6 +202,8 @@ export default function Home() {
                   <p className="text-gray-600 mb-4">{competency.description}</p>
                   <Link 
                     href={competency.href}
+                    data-analytics="cta"
+                    data-cta-label={`${competency.id}_learn_more`}
                     className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium"
                   >
                     Learn More <ChevronRight className="ml-1 h-4 w-4" />
