@@ -1,4 +1,4 @@
-# CSS NC II Training Companion App 
+# CSS NC II Training Companion App
 
 A comprehensive web application designed to help students and professionals master Computer Systems Servicing and prepare for TESDA NC II certification.
 

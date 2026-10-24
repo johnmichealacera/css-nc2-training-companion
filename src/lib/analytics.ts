@@ -1,6 +1,6 @@
 declare global {
   interface Window {
-    dataLayer: IArguments[]
+    dataLayer: unknown[]
     gtag?: (...args: unknown[]) => void
   }
 }
