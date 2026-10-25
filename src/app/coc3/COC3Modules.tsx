@@ -1,6 +1,10 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import ExtraNotes, { extraItems } from '@/components/ExtraNotes'
+import ModuleQuiz from '@/components/ModuleQuiz'
+import VideoModal from '@/components/VideoModal'
+import { useLockBody } from '@/hooks/useLockBody'
 import { 
   Video, 
   FileText, 
@@ -14,20 +18,7 @@ import {
 export default function COC3Modules() {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
   const [openPracticeModal, setOpenPracticeModal] = useState<string | null>(null)
-
-  // Lock body scroll when any modal is open
-  useEffect(() => {
-    if (selectedVideo || openPracticeModal) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-
-    // Cleanup function to restore scroll when component unmounts
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [selectedVideo, openPracticeModal])
+  useLockBody(!!selectedVideo || !!openPracticeModal)
 
   const modules = [
     {
@@ -149,7 +140,7 @@ export default function COC3Modules() {
             'On Drive D or DATA, create folder named "Redirection"',
             'Right click folder, select properties, select sharing tab',
             'Click advance sharing, check share this folder',
-            'Click permission, under Everyone account, check Full Control',
+            'Lab only: some briefs use Everyone Full Control so the demo works. Workplace version: share to a named group with least privilege and keep NTFS tighter than the share.',
             'Click apply and OK',
             'Copy Network Path (e.g., \\Server\\FolderName) to notepad'
           ]
@@ -247,7 +238,22 @@ export default function COC3Modules() {
             'Test connectivity between all devices',
             'Verify folder redirection and group policy settings'
           ]
-        }
+        },
+        accessSecurity: [
+          'Create a standard user and a Domain Admins user. Do not log in daily as Administrator.',
+          'Set share and NTFS separately. Example: share Change to CSS-Users, NTFS Modify to the same group, Full Control to Domain Admins.',
+          'Run a security check: unused accounts disabled, password policy on, RDP limited to the right group.',
+        ],
+        extraServices: [
+          'File sharing: a department share with mapped drive via GPO.',
+          'Print sharing: install the printer on the server, share it, connect from win10 and win11.',
+          'Web: add IIS, drop a one-page site, browse http://server from a client. Know that TR also lists proxy and database as service types.',
+        ],
+        preDeployment: [
+          'Confirm no boot errors, DNS resolution, DHCP leases, folder redirection, and RDP both ways.',
+          'Install the required apps and seed sample files in redirected folders.',
+          'Write the server report: hostname, IP, forest, OU, users, shares, printer, IIS URL, and test results.',
+        ]
       }
     }
   ]
@@ -360,46 +366,14 @@ export default function COC3Modules() {
                 </div>
               </div>
 
-              {/* Video Modal */}
-              {module.videoUrl && selectedVideo === module.videoUrl && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4">
-                  <div className="bg-white rounded-lg w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden">
-                    <div className="p-3 sm:p-4 border-b border-gray-200">
-                      <div className="flex justify-between items-center">
-                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 pr-2">{module.title} - Video Tutorial</h3>
-                        <button 
-                          onClick={() => setSelectedVideo(null)}
-                          className="text-gray-500 hover:text-gray-700 flex-shrink-0"
-                        >
-                          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                    <div className="p-3 sm:p-4">
-                      <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-                        <iframe
-                          id={`video-iframe-${module.id}`}
-                          className="absolute top-0 left-0 w-full h-full rounded-lg"
-                          src={module.videoUrl.includes('youtu.be') 
-                            ? `https://www.youtube.com/embed/${module.videoUrl.split('youtu.be/')[1].split('?')[0]}`
-                            : module.videoUrl.replace('watch?v=', 'embed/').split('&')[0]
-                          }
-                          title={`${module.title} Video Tutorial`}
-                          frameBorder="0"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                        ></iframe>
-                      </div>
-                      <div className="mt-4">
-                        <h4 className="font-semibold text-gray-900 mb-2">Video Description:</h4>
-                        <p className="text-gray-600">{module.description}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+              {module.videoUrl && selectedVideo === module.videoUrl ? (
+                <VideoModal
+                  url={module.videoUrl}
+                  title={`${module.title} - Video Tutorial`}
+                  description={module.description}
+                  onClose={() => setSelectedVideo(null)}
+                />
+              ) : null}
 
               {/* Practice Modal */}
               {openPracticeModal === module.id && (
@@ -625,6 +599,9 @@ export default function COC3Modules() {
                               </div>
                             </div>
                           )}
+                          <ExtraNotes title="User access and security check" items={extraItems(module.practiceContent, 'accessSecurity')} />
+                          <ExtraNotes title="File, print, and web services" items={extraItems(module.practiceContent, 'extraServices')} />
+                          <ExtraNotes title="Testing, documentation, and pre-deployment" items={extraItems(module.practiceContent, 'preDeployment')} />
                         </div>
                       )}
                     </div>
@@ -634,6 +611,7 @@ export default function COC3Modules() {
             </div>
           ))}
         </div>
+        <ModuleQuiz cocId="coc3" />
       </div>
     </section>
   )

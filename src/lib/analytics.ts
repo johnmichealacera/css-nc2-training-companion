@@ -62,6 +62,8 @@ export function contentGroupForPath(path: string) {
   if (pathname === '/glossary') return 'glossary'
   if (pathname === '/about') return 'about'
   if (pathname === '/contact') return 'contact'
+  if (pathname === '/intro') return 'intro'
+  if (pathname === '/assessment') return 'assessment'
   return 'other'
 }
 

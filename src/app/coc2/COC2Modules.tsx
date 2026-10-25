@@ -1,6 +1,10 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import ExtraNotes, { extraItems } from '@/components/ExtraNotes'
+import ModuleQuiz from '@/components/ModuleQuiz'
+import VideoModal from '@/components/VideoModal'
+import { useLockBody } from '@/hooks/useLockBody'
 import { 
   Video, 
   FileText, 
@@ -13,20 +17,7 @@ import {
 export default function COC2Modules() {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
   const [openPracticeModal, setOpenPracticeModal] = useState<string | null>(null)
-
-  // Lock body scroll when any modal is open
-  useEffect(() => {
-    if (selectedVideo || openPracticeModal) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-
-    // Cleanup function to restore scroll when component unmounts
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [selectedVideo, openPracticeModal])
+  useLockBody(!!selectedVideo || !!openPracticeModal)
 
   const modules = [
     {
@@ -107,17 +98,19 @@ export default function COC2Modules() {
       duration: '8 hours',
       videoUrl: 'https://www.youtube.com/watch?v=NWhoJp8UQpo',
       topics: ['UTP/STP Cables', 'Cable Crimping', 'Color Coding', 'Network Tools'],
-      isAssessmentTask: false,
-      taskNumber: null,
+      isAssessmentTask: true,
+      taskNumber: 1,
       practiceContent: {
         title: 'Cable Crimping with Color Coding',
         type: 'A',
-        objectives: 'Create cable connection using UTP cable with specific standard tools and materials in accordance to cable color coding',
-        materials: ['UTP Cable', 'RJ45 Connectors', 'Crimping Tools', 'LAN Cable Tester'],
+        objectives: 'Plan a cable route, splice copper to T-568A and T-568B, install raceway as required, test with a LAN tester, and record the result.',
+        materials: ['UTP Cable', 'RJ45 Connectors', 'Crimping Tools', 'LAN Cable Tester', 'Protective eyewear', 'Gloves', 'Slotted PVC or raceway'],
         procedures: [
-          'Get a UTP cable and crimp both ends using crimping tools and RJ45',
-          'Perform color coding T-568A',
-          'Test the cable using LAN cable tester'
+          'Sketch the cable route and list materials before cutting',
+          'Make one straight-through (same standard both ends) and one crossover (A to B)',
+          'Seat cables in raceway. Do not leave UTP across walkways',
+          'Test every cable. Record pass/fail, opens, shorts, and split pairs',
+          'Clean copper scraps (5S / 3Rs)'
         ],
         cableTypes: [
           {
@@ -146,31 +139,48 @@ export default function COC2Modules() {
         ],
         colorCoding: {
           t568a: {
-            name: 'T-568A Standard',
-            pairs: [
-              { pair: 1, colors: ['White/Green', 'Green'] },
-              { pair: 2, colors: ['White/Orange', 'Blue'] },
-              { pair: 3, colors: ['White/Blue', 'Orange'] },
-              { pair: 4, colors: ['White/Brown', 'Brown'] }
+            name: 'T-568A pin order (crimp this way)',
+            pins: [
+              { pin: 1, color: 'White/Green' },
+              { pin: 2, color: 'Green' },
+              { pin: 3, color: 'White/Orange' },
+              { pin: 4, color: 'Blue' },
+              { pin: 5, color: 'White/Blue' },
+              { pin: 6, color: 'Orange' },
+              { pin: 7, color: 'White/Brown' },
+              { pin: 8, color: 'Brown' },
             ]
           },
           t568b: {
-            name: 'T-568B Standard',
-            pairs: [
-              { pair: 1, colors: ['White/Orange', 'Orange'] },
-              { pair: 2, colors: ['White/Green', 'Blue'] },
-              { pair: 3, colors: ['White/Blue', 'Green'] },
-              { pair: 4, colors: ['White/Brown', 'Brown'] }
+            name: 'T-568B pin order (common in PH shops)',
+            pins: [
+              { pin: 1, color: 'White/Orange' },
+              { pin: 2, color: 'Orange' },
+              { pin: 3, color: 'White/Green' },
+              { pin: 4, color: 'Blue' },
+              { pin: 5, color: 'White/Blue' },
+              { pin: 6, color: 'Green' },
+              { pin: 7, color: 'White/Brown' },
+              { pin: 8, color: 'Brown' },
             ]
           }
         },
+        cableJobs: [
+          'Straight-through: same standard on both ends (T-568A to A, or B to B). Use this for PC to switch or patch panel.',
+          'Crossover: T-568A on one end and T-568B on the other. Older PC-to-PC or switch-to-switch links. Many NICs auto-MDIX now, but assessment still asks you to make both.',
+          'Rollover: pins reversed 1-8 to 8-1. Console cable to a managed device, not a LAN drop.',
+        ],
+        racewayNotes: [
+          'Plan the cable route on paper before pulling: shortest safe path, away from power lines, with service loops.',
+          'Install raceway as required: slotted PVC, metallic raceway, or flexible conduit. Do not leave UTP hanging across walkways.',
+          'Wear eye protection and gloves. Follow 5S: sort scraps, sweep copper bits, recycle waste under 3Rs / WEEE.',
+          'Test every drop with a LAN tester. Record pair map, shorts, opens, and split pairs on the cable test log.',
+        ],
         crimpingSteps: [
-          'Strip cable jacket to expose 4 twisted pairs',
-          'Untwist pairs and arrange according to T-568A standard',
-          'Trim wires to uniform length',
-          'Insert wires into RJ45 connector',
-          'Crimp connector using crimping tool',
-          'Test cable with LAN tester'
+          'Strip about 25 mm of jacket. Do not nick the conductors.',
+          'Untwist pairs only as far as needed. Arrange pins 1-8 for T-568A or T-568B.',
+          'Flatten and trim the eight wires even, then seat them in the RJ45 until the jacket is inside the strain relief.',
+          'Crimp fully. Test both ends. A pass is 1-1 through 8-8 with no opens or shorts.',
         ]
       }
     },
@@ -182,7 +192,7 @@ export default function COC2Modules() {
       videoUrl: 'https://www.youtube.com/watch?v=zZ02fvBXNAI',
       topics: ['Static IP Configuration', 'Network Settings', 'Firewall Configuration', 'Network Sharing', 'Connectivity Testing'],
       isAssessmentTask: true,
-      taskNumber: 1,
+      taskNumber: 2,
       practiceContent: {
         title: 'Static IP Configuration and Network Setup',
         type: 'B',
@@ -227,9 +237,9 @@ export default function COC2Modules() {
         },
         firewallConfiguration: {
           title: 'Firewall Configuration',
-          description: 'Configure Windows Defender Firewall settings',
+          description: 'Assessment-lab procedure only. Many centers ask you to turn the firewall off so file sharing and ping work. In a workplace, leave the firewall on and allow the specific apps and ports you need.',
           steps: [
-            'Press Windows + R and type "control firewall.cpl" and press enter',
+            'Lab only: Press Windows + R and type "control firewall.cpl" and press enter',
             'Turn "off" Windows Defender Firewall for private, public and domain networks',
             'Click "Ok" to save changes'
           ]
@@ -277,7 +287,7 @@ export default function COC2Modules() {
       videoUrl: 'https://www.youtube.com/watch?v=AMXIE5c5sv8&t=1s',
       topics: ['Router Configuration', 'Wireless Settings', 'Dynamic IP', 'Network Security', 'Connectivity Testing'],
       isAssessmentTask: true,
-      taskNumber: 2,
+      taskNumber: 3,
       practiceContent: {
         title: 'Dynamic IP and Wireless Network Configuration',
         type: 'B',
@@ -306,7 +316,7 @@ export default function COC2Modules() {
           description: 'Configure wireless network name and security settings',
           steps: [
             'Go to Wireless Menu, change Wireless Network Name (e.g., Lastname.Firstname)',
-            'Go to Wireless Security, under WPA/WPA2, change Wireless Password (e.g., 123456789)',
+            'Set WPA2 and a unique passphrase. Do not use 123456789 on a real network. For the lab, follow the assessor brief.',
             'Save wireless configuration settings'
           ]
         },
@@ -323,9 +333,9 @@ export default function COC2Modules() {
         },
         firewallConfiguration: {
           title: 'Firewall Configuration',
-          description: 'Configure Windows Defender Firewall for wireless network',
+          description: 'Assessment-lab procedure only. Many centers ask you to turn the firewall off so file sharing and ping work. In a workplace, leave the firewall on and allow the specific apps and ports you need.',
           steps: [
-            'Press Windows + R and type "control firewall.cpl" and press enter',
+            'Lab only: Press Windows + R and type "control firewall.cpl" and press enter',
             'Turn "off" Windows Defender Firewall for private, public and domain networks',
             'Click "Ok" to save changes'
           ]
@@ -362,7 +372,23 @@ export default function COC2Modules() {
             'Example: ping 192.168.xx.xxx -t',
             'Test connectivity between all devices in the wireless network'
           ]
-        }
+        },
+        wanAndSecurity: [
+          'WAN port: set the router Internet/WAN to DHCP or the static IP the assessor gives. Confirm the WAN LED and a public or ISP address on the status page.',
+          'LAN port: set the router LAN to the design (example 10.0.0.1/24). Disable the AP DHCP only when the server is the DHCP server.',
+          'Wireless security: WPA2-Personal or WPA2-Enterprise as briefed. Change the default admin password. Hide SSID only if the brief says so.',
+          'Workplace version: do not leave WPA2 as 123456789 or admin/admin after the exam.',
+        ],
+        ipv6Notes: [
+          'IPv4 uses 32-bit addresses (10.0.0.100/24). IPv6 uses 128-bit addresses (example 2001:db8::1).',
+          'A /24 IPv4 subnet has 256 addresses, 254 usable. Default gateway is usually .1.',
+          'If IPv6 is on and IPv4 is wrong, Windows may still look “connected.” Confirm IPv4 with ipconfig and ping.',
+        ],
+        networkReport: [
+          'Draw the topology: router, switch, server, laptop, desktop.',
+          'List each host IP, mask, gateway, and DNS.',
+          'Attach the cable test log and ping results. Sign and date the sheet.',
+        ]
       }
     }
   ]
@@ -383,8 +409,9 @@ export default function COC2Modules() {
               <h3 className="text-lg font-semibold text-amber-800">Core Assessment Tasks</h3>
             </div>
             <p className="text-amber-700 text-sm">
-              <strong>Task 1:</strong> Static IP Configuration (Module 3) | 
-              <strong> Task 2:</strong> Dynamic IP & Wireless Configuration (Module 4)
+              <strong>Task 1:</strong> Cable splicing and test (Module 2) | 
+              <strong> Task 2:</strong> Static IP (Module 3) | 
+              <strong> Task 3:</strong> Router / Wi-Fi (Module 4)
             </p>
             <p className="text-amber-700 text-xs mt-1">
               These modules will be thoroughly assessed hands-on during your TESDA evaluation.
@@ -473,46 +500,14 @@ export default function COC2Modules() {
                 </div>
               </div>
 
-              {/* Video Modal */}
-              {selectedVideo === module.videoUrl && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4">
-                  <div className="bg-white rounded-lg w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden">
-                    <div className="p-3 sm:p-4 border-b border-gray-200">
-                      <div className="flex justify-between items-center">
-                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 pr-2">{module.title} - Video Tutorial</h3>
-                        <button 
-                          onClick={() => setSelectedVideo(null)}
-                          className="text-gray-500 hover:text-gray-700 flex-shrink-0"
-                        >
-                          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                    <div className="p-3 sm:p-4">
-                      <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-                        <iframe
-                          id={`video-iframe-${module.id}`}
-                          className="absolute top-0 left-0 w-full h-full rounded-lg"
-                          src={module.videoUrl.includes('youtu.be') 
-                            ? `https://www.youtube.com/embed/${module.videoUrl.split('youtu.be/')[1].split('?')[0]}`
-                            : module.videoUrl.replace('watch?v=', 'embed/').split('&')[0]
-                          }
-                          title={`${module.title} Video Tutorial`}
-                          frameBorder="0"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                        ></iframe>
-                      </div>
-                      <div className="mt-4">
-                        <h4 className="font-semibold text-gray-900 mb-2">Video Description:</h4>
-                        <p className="text-gray-600">{module.description}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+              {selectedVideo === module.videoUrl ? (
+                <VideoModal
+                  url={module.videoUrl}
+                  title={`${module.title} - Video Tutorial`}
+                  description={module.description}
+                  onClose={() => setSelectedVideo(null)}
+                />
+              ) : null}
 
               {/* Practice Modal */}
               {openPracticeModal === module.id && (
@@ -683,14 +678,9 @@ export default function COC2Modules() {
                                 <div className="bg-yellow-50 rounded-lg p-4">
                                   <h5 className="font-semibold text-yellow-900 mb-2">{module.practiceContent.colorCoding.t568a.name}</h5>
                                   <div className="space-y-2">
-                                    {module.practiceContent.colorCoding.t568a.pairs.map((pair, idx) => (
-                                      <div key={idx} className="text-sm">
-                                        <span className="font-medium text-yellow-900">Pair {pair.pair}:</span>
-                                        <div className="text-yellow-800">
-                                          {pair.colors.map((color, colorIdx) => (
-                                            <div key={colorIdx} className="ml-2">• {color}</div>
-                                          ))}
-                                        </div>
+                                    {module.practiceContent.colorCoding.t568a.pins.map((item) => (
+                                      <div key={item.pin} className="text-sm text-yellow-800">
+                                        Pin {item.pin}: {item.color}
                                       </div>
                                     ))}
                                   </div>
@@ -698,19 +688,35 @@ export default function COC2Modules() {
                                 <div className="bg-green-50 rounded-lg p-4">
                                   <h5 className="font-semibold text-green-900 mb-2">{module.practiceContent.colorCoding.t568b.name}</h5>
                                   <div className="space-y-2">
-                                    {module.practiceContent.colorCoding.t568b.pairs.map((pair, idx) => (
-                                      <div key={idx} className="text-sm">
-                                        <span className="font-medium text-green-900">Pair {pair.pair}:</span>
-                                        <div className="text-green-800">
-                                          {pair.colors.map((color, colorIdx) => (
-                                            <div key={colorIdx} className="ml-2">• {color}</div>
-                                          ))}
-                                        </div>
+                                    {module.practiceContent.colorCoding.t568b.pins.map((item) => (
+                                      <div key={item.pin} className="text-sm text-green-800">
+                                        Pin {item.pin}: {item.color}
                                       </div>
                                     ))}
                                   </div>
                                 </div>
                               </div>
+                            </div>
+                          )}
+
+                          {module.id === 'module2' && module.practiceContent.cableJobs && (
+                            <div>
+                              <h4 className="font-semibold text-gray-900 mb-3">Cable jobs you must be able to explain</h4>
+                              <ul className="list-disc list-inside space-y-1 text-gray-700">
+                                {module.practiceContent.cableJobs.map((item, idx) => (
+                                  <li key={idx}>{item}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          {module.id === 'module2' && module.practiceContent.racewayNotes && (
+                            <div>
+                              <h4 className="font-semibold text-gray-900 mb-3">Route, raceway, PPE, and 5S</h4>
+                              <ul className="list-disc list-inside space-y-1 text-gray-700">
+                                {module.practiceContent.racewayNotes.map((item, idx) => (
+                                  <li key={idx}>{item}</li>
+                                ))}
+                              </ul>
                             </div>
                           )}
 
@@ -935,6 +941,9 @@ export default function COC2Modules() {
                               </div>
                             </div>
                           )}
+                          <ExtraNotes title="WAN, wireless security, and workplace hardening" items={extraItems(module.practiceContent, 'wanAndSecurity')} />
+                          <ExtraNotes title="IPv4, IPv6, and subnetting" items={extraItems(module.practiceContent, 'ipv6Notes')} />
+                          <ExtraNotes title="Network inspection report" items={extraItems(module.practiceContent, 'networkReport')} />
                         </div>
                       )}
                     </div>
@@ -944,6 +953,7 @@ export default function COC2Modules() {
             </div>
           ))}
         </div>
+        <ModuleQuiz cocId="coc2" />
       </div>
     </section>
   )

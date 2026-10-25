@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { 
   Wrench, 
-  ArrowLeft, 
   BookOpen, 
   CheckCircle,
   Clock,
@@ -13,7 +12,9 @@ import {
   HardDrive
 } from 'lucide-react'
 import Footer from '@/components/Footer'
+import PageNav from '@/components/PageNav'
 import COC4Modules from './COC4Modules'
+import { otherCocLinks } from '@/content/program'
 
 export const metadata: Metadata = {
   title: 'COC 4: Maintaining and Repairing Systems and Networks - CSS NC II Training',
@@ -137,24 +138,7 @@ export default function COC4Page() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <Link href="/" className="flex items-center text-gray-600 hover:text-gray-900">
-                <ArrowLeft className="h-5 w-5 mr-2" />
-                Back to Home
-              </Link>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Link href="/coc1" className="text-gray-600 hover:text-gray-900">COC 1</Link>
-              <Link href="/coc2" className="text-gray-600 hover:text-gray-900">COC 2</Link>
-              <Link href="/coc3" className="text-gray-600 hover:text-gray-900">COC 3</Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <PageNav links={otherCocLinks('coc4')} />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-orange-600 to-orange-800 text-white">
@@ -183,14 +167,14 @@ export default function COC4Page() {
                 <Clock className="h-8 w-8 text-orange-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Duration</h3>
-              <p className="text-gray-600">32 Hours</p>
+              <p className="text-gray-600">40 core hours</p>
             </div>
             <div className="text-center">
               <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="h-8 w-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Prerequisites</h3>
-              <p className="text-gray-600">Intro to CSS + COC 1 + COC 2 + COC 3</p>
+              <p className="text-gray-600">Intro + COC 1–3</p>
             </div>
             <div className="text-center">
               <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">

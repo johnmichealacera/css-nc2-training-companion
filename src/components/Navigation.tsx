@@ -24,8 +24,10 @@ export default function Navigation() {
               <span className="ml-2 text-xl font-bold text-gray-900">CSS NC II Training</span>
             </div>
             <div className="flex items-center space-x-4">
-              <Link href="/glossary" className="text-gray-600 hover:text-gray-900">Glossary</Link>
-              <Link href="/about" className="text-gray-600 hover:text-gray-900">About</Link>
+              <Link href="/intro" className="text-gray-600 hover:text-gray-900">Intro</Link>
+              <Link href="/assessment" className="text-gray-600 hover:text-gray-900">Assessment</Link>
+              <Link href="/glossary" className="text-gray-600 hover:text-gray-900 hidden sm:inline">Glossary</Link>
+              <Link href="/about" className="text-gray-600 hover:text-gray-900 hidden sm:inline">About</Link>
               <button
                 onClick={() => setIsHelpModalOpen(true)}
                 className="text-gray-600 hover:text-gray-900 p-2 rounded-lg hover:bg-gray-100 transition-colors"

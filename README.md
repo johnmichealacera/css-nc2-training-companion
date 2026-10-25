@@ -174,7 +174,7 @@ The application uses Tailwind CSS for styling. You can customize the design by m
 ## 🌟 Benefits of CSS NC II Certification
 
 - **Industry Recognition**: Based on industry needs and standards
-- **TESDA Certified**: Recognized locally and internationally
+- **TESDA CSS NC II aligned**: Core COC practice mapped to the official TR and SAG, without claiming TESDA affiliation or a National Certificate
 - **Career Gateway**: Pathway to advanced IT courses and opportunities
 - **Professional Growth**: Enhanced job prospects and earning potential
 

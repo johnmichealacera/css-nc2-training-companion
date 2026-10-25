@@ -6,6 +6,13 @@ interface FooterProps {
 }
 
 export default function Footer({ variant = 'simple' }: FooterProps) {
+  const year = new Date().getFullYear()
+  const credit = (
+    <>
+      © 2025 - {year} CSS NC II Training Companion App. A project by John Micheal Acera |{' '}
+      <a href="https://www.johnmichealacera.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-white">johnmichealacera.com</a>
+    </>
+  )
   if (variant === 'full') {
     return (
       <footer className="bg-gray-900 text-white py-12">
@@ -34,6 +41,8 @@ export default function Footer({ variant = 'simple' }: FooterProps) {
             <div>
               <h3 className="text-lg font-semibold mb-4">Resources</h3>
               <ul className="space-y-2">
+                <li><Link href="/intro" className="text-gray-400 hover:text-white">Intro to CSS</Link></li>
+                <li><Link href="/assessment" className="text-gray-400 hover:text-white">Assessment gym</Link></li>
                 <li><Link href="/glossary" className="text-gray-400 hover:text-white">Glossary</Link></li>
                 <li><Link href="/about" className="text-gray-400 hover:text-white">About</Link></li>
                 <li><Link href="/contact" className="text-gray-400 hover:text-white">Contact</Link></li>
@@ -60,7 +69,7 @@ export default function Footer({ variant = 'simple' }: FooterProps) {
           
           <div className="border-t border-gray-800 pt-6 text-center">
             <p className="text-gray-400 text-sm">
-              © 2025 CSS NC II Training Companion App. A project by John Micheal Acera | <a href="https://www.johnmichealacera.com" target="_blank" className="text-blue-400 hover:text-white">johnmichealacera.com</a>
+              {credit}
             </p>
           </div>
         </div>
@@ -88,7 +97,7 @@ export default function Footer({ variant = 'simple' }: FooterProps) {
         
         <div className="text-center">
           <p className="text-gray-400 text-sm">
-            © 2025 CSS NC II Training Companion App. A project by John Micheal Acera | <a href="https://www.johnmichealacera.com" target="_blank" className="text-blue-400 hover:text-white">johnmichealacera.com</a>
+            {credit}
           </p>
         </div>
       </div>

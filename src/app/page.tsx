@@ -13,6 +13,8 @@ import {
 } from 'lucide-react'
 import Footer from '@/components/Footer'
 import Navigation from '@/components/Navigation'
+import OfficialDocs from '@/components/OfficialDocs'
+import { companionCore, officialProgram } from '@/content/program'
 
 export const metadata: Metadata = {
   title: 'CSS NC II Training Companion App - Master Computer Systems Servicing',
@@ -43,56 +45,29 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const coreCompetencies = [
-    {
-      id: 'coc1',
-      title: 'Installing and Configuring Computer Systems',
-      description: 'Learn to install and configure computer hardware and software, disassemble and assemble computers, and install operating systems.',
-      icon: Computer,
-      color: 'bg-blue-500',
-      href: '/coc1'
-    },
-    {
-      id: 'coc2',
-      title: 'Setting up Computer Networks',
-      description: 'Master wired and wireless network setup, cable creation, router configuration, and workstation connectivity.',
-      icon: Network,
-      color: 'bg-green-500',
-      href: '/coc2'
-    },
-    {
-      id: 'coc3',
-      title: 'Setting up Computer Servers',
-      description: 'Learn basic server administration, user access setup, network services configuration, and documentation procedures.',
-      icon: Server,
-      color: 'bg-purple-500',
-      href: '/coc3'
-    },
-    {
-      id: 'coc4',
-      title: 'Maintaining and Repairing Systems',
-      description: 'Master system and network maintenance, planning, inspection, testing, and repair procedures.',
-      icon: Wrench,
-      color: 'bg-orange-500',
-      href: '/coc4'
-    }
-  ]
+  const coreIcons = [Computer, Network, Server, Wrench]
+  const coreColors = ['bg-blue-500', 'bg-green-500', 'bg-purple-500', 'bg-orange-500']
+  const coreCompetencies = companionCore.cocs.map((coc, index) => ({
+    ...coc,
+    icon: coreIcons[index],
+    color: coreColors[index],
+  }))
 
   const courseInfo = [
     {
       icon: Clock,
-      title: 'Duration',
-      value: '280 Hours'
+      title: 'Official TESDA program',
+      value: `${officialProgram.totalHours} hours (40 basic + 80 common + 160 core)`
     },
     {
-      icon: Users,
-      title: 'Format',
-      value: 'Lecture + Hands-on + Mock Assessment'
+      icon: BookOpen,
+      title: 'This companion',
+      value: `${companionCore.totalHours} core hours across 4 COCs`
     },
     {
       icon: Award,
-      title: 'Certification',
-      value: 'TESDA Recognized'
+      title: 'Assessment',
+      value: 'National Certificate after TESDA assessment — not granted by this site'
     }
   ]
 
@@ -109,23 +84,25 @@ export default function Home() {
               CSS NC II Training Companion
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-              Master Computer Systems Servicing with our comprehensive training companion. 
-              Prepare for TESDA certification with hands-on learning and expert guidance.
+              Independent practice for TESDA Computer Systems Servicing NC II.
+              Learn the four core COCs, then rehearse the practical and oral assessment.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
-                href="/coc1"
+                href="/intro"
                 data-analytics="cta"
-                data-cta-label="start_learning"
+                data-cta-label="start_intro"
                 className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
               >
-                Start Learning
+                Start with Intro
               </Link>
               <Link 
-                href="/about" 
+                href="/assessment"
+                data-analytics="cta"
+                data-cta-label="practice_assessment"
                 className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
               >
-                Learn More
+                Practice for Assessment
               </Link>
             </div>
           </div>
@@ -156,8 +133,8 @@ export default function Home() {
               <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Award className="h-6 w-6 text-green-600" />
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">TESDA Certified</h3>
-              <p className="text-gray-600 text-sm">Recognized locally and abroad</p>
+              <h3 className="font-semibold text-gray-900 mb-2">TESDA National Certificate</h3>
+              <p className="text-gray-600 text-sm">Awarded after official assessment, not by this companion</p>
             </div>
             
             <div className="bg-purple-50 p-6 rounded-lg text-center">
@@ -199,14 +176,15 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="p-6">
-                  <p className="text-gray-600 mb-4">{competency.description}</p>
+                  <p className="text-gray-600 mb-2">{competency.description}</p>
+                  <p className="text-sm text-gray-500 mb-4">{competency.code} · {competency.hours} core hours</p>
                   <Link 
                     href={competency.href}
                     data-analytics="cta"
                     data-cta-label={`${competency.id}_learn_more`}
                     className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium"
                   >
-                    Learn More <ChevronRight className="ml-1 h-4 w-4" />
+                    Open COC <ChevronRight className="ml-1 h-4 w-4" />
                   </Link>
                 </div>
               </div>
@@ -221,7 +199,7 @@ export default function Home() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Course Overview</h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Comprehensive training designed to prepare you for the CSS NC II assessment with hands-on experience.
+              Official TESDA CSS NC II is {officialProgram.totalHours} hours. This companion focuses on the {companionCore.totalHours}-hour core and the national assessment tasks.
             </p>
           </div>
           
@@ -251,7 +229,11 @@ export default function Home() {
                 <p className="text-blue-600 font-medium">8:00 AM - 5:00 PM</p>
               </div>
             </div>
-            <p className="text-center text-gray-600 mt-4">* Schedule is modifiable based on training needs</p>
+            <p className="text-center text-gray-600 mt-4">Typical face-to-face training-center hours. This site is self-paced.</p>
+            <div className="mt-8 max-w-3xl mx-auto bg-white rounded-lg p-6">
+              <h4 className="font-semibold text-gray-900 mb-3">Official documents</h4>
+              <OfficialDocs compact />
+            </div>
           </div>
         </div>
       </section>

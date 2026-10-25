@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { 
   Network, 
-  ArrowLeft, 
   BookOpen, 
   CheckCircle,
   Clock,
@@ -13,7 +12,9 @@ import {
   Server
 } from 'lucide-react'
 import Footer from '@/components/Footer'
+import PageNav from '@/components/PageNav'
 import COC2Modules from './COC2Modules'
+import { otherCocLinks } from '@/content/program'
 
 export const metadata: Metadata = {
   title: 'COC 2: Setting up Computer Networks - CSS NC II Training',
@@ -110,24 +111,7 @@ export default function COC2Page() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <Link href="/" className="flex items-center text-gray-600 hover:text-gray-900">
-                <ArrowLeft className="h-5 w-5 mr-2" />
-                Back to Home
-              </Link>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Link href="/coc1" className="text-gray-600 hover:text-gray-900">COC 1</Link>
-              <Link href="/coc3" className="text-gray-600 hover:text-gray-900">COC 3</Link>
-              <Link href="/coc4" className="text-gray-600 hover:text-gray-900">COC 4</Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <PageNav links={otherCocLinks('coc2')} />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-green-600 to-green-800 text-white">
@@ -156,7 +140,7 @@ export default function COC2Page() {
                 <Clock className="h-8 w-8 text-green-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Duration</h3>
-              <p className="text-gray-600">32 Hours</p>
+              <p className="text-gray-600">40 core hours</p>
             </div>
             <div className="text-center">
               <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">

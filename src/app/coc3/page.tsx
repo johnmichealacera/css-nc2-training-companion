@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { 
   Server, 
-  ArrowLeft, 
   BookOpen, 
   CheckCircle,
   Clock,
@@ -15,14 +14,16 @@ import {
   FileText
 } from 'lucide-react'
 import Footer from '@/components/Footer'
+import PageNav from '@/components/PageNav'
 import COC3Modules from './COC3Modules'
+import { otherCocLinks } from '@/content/program'
 
 export const metadata: Metadata = {
-  title: 'COC 3: Configure Server - CSS NC II Training',
+  title: 'COC 3: Set-up Computer Servers - CSS NC II Training',
   description: 'Learn server configuration and management including local server setup, Active Directory installation, folder redirection, and remote desktop management. Master domain controller setup and network services.',
   keywords: 'COC 3, Server Configuration, Active Directory, Domain Controller, Folder Redirection, Remote Desktop, Network Services, Server Management, CSS NC II, TESDA',
   openGraph: {
-    title: 'COC 3: Configure Server - CSS NC II Training',
+    title: 'COC 3: Set-up Computer Servers - CSS NC II Training',
     description: 'Learn server configuration and management including local server setup, Active Directory installation, folder redirection, and remote desktop management.',
     url: 'https://css-nc2-companion.vercel.app/coc3',
     siteName: 'CSS NC II Training Companion App',
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
         url: '/img/meta-coc3.jpg',
         width: 1200,
         height: 630,
-        alt: 'COC 3: Configure Server',
+        alt: 'COC 3: Set-up Computer Servers',
       },
     ],
     locale: 'en_US',
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'COC 3: Configure Server - CSS NC II Training',
+    title: 'COC 3: Set-up Computer Servers - CSS NC II Training',
     description: 'Learn server configuration and management including local server setup, Active Directory installation, folder redirection, and remote desktop management.',
     images: ['/img/meta-coc3.jpg'],
   },
@@ -139,24 +140,7 @@ export default function COC3Page() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <Link href="/" className="flex items-center text-gray-600 hover:text-gray-900">
-                <ArrowLeft className="h-5 w-5 mr-2" />
-                Back to Home
-              </Link>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Link href="/coc1" className="text-gray-600 hover:text-gray-900">COC 1</Link>
-              <Link href="/coc2" className="text-gray-600 hover:text-gray-900">COC 2</Link>
-              <Link href="/coc4" className="text-gray-600 hover:text-gray-900">COC 4</Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <PageNav links={otherCocLinks('coc3')} />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-purple-600 to-purple-800 text-white">
@@ -164,7 +148,7 @@ export default function COC3Page() {
           <div className="flex items-center mb-6">
             <Server className="h-12 w-12 mr-4" />
             <div>
-              <h1 className="text-4xl font-bold">COC 3: Configure Server</h1>
+              <h1 className="text-4xl font-bold">COC 3: Set-up Computer Servers</h1>
               <p className="text-xl opacity-90">Server Configuration and Management</p>
             </div>
           </div>
@@ -185,14 +169,14 @@ export default function COC3Page() {
                 <Clock className="h-8 w-8 text-purple-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Duration</h3>
-              <p className="text-gray-600">30 Hours</p>
+              <p className="text-gray-600">40 core hours</p>
             </div>
             <div className="text-center">
               <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="h-8 w-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Prerequisites</h3>
-              <p className="text-gray-600">Intro to CSS + COC 1 + COC 2</p>
+              <p className="text-gray-600">Intro + COC 1 + COC 2</p>
             </div>
             <div className="text-center">
               <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">

@@ -31,6 +31,9 @@ module.exports = {
     } else if (path.startsWith('/coc')) {
       priority = 0.9;
       changefreq = 'monthly';
+    } else if (path === '/intro' || path === '/assessment') {
+      priority = 0.9;
+      changefreq = 'weekly';
     } else if (path === '/about' || path === '/glossary') {
       priority = 0.8;
       changefreq = 'monthly';

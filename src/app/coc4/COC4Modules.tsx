@@ -1,6 +1,10 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import ExtraNotes, { extraItems } from '@/components/ExtraNotes'
+import ModuleQuiz from '@/components/ModuleQuiz'
+import VideoModal from '@/components/VideoModal'
+import { useLockBody } from '@/hooks/useLockBody'
 import {
   Video,
   FileText,
@@ -13,20 +17,7 @@ import {
 export default function COC4Modules() {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
   const [openPracticeModal, setOpenPracticeModal] = useState<string | null>(null)
-
-  // Lock body scroll when any modal is open
-  useEffect(() => {
-    if (selectedVideo || openPracticeModal) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-
-    // Cleanup function to restore scroll when component unmounts
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [selectedVideo, openPracticeModal])
+  useLockBody(!!selectedVideo || !!openPracticeModal)
 
   const modules = [
     {
@@ -106,7 +97,7 @@ export default function COC4Modules() {
               'Select any location (e.g., "Drive D")',
               'Create folder named "Backup and Restore"',
               'Share the created folder',
-              'Add EVERYONE permission user'
+              'Lab only: add EVERYONE so the backup share is easy to demo. Workplace version: a Backup Operators group and a dedicated backup account.'
             ]
           },
           clientSide: {
@@ -180,7 +171,12 @@ export default function COC4Modules() {
             'Set share name and click "Apply"',
             'Test printer sharing from client computers'
           ]
-        }
+        },
+        fileSharing: [
+          'Create C:\\Shares\\Staff on the server. Share as Staff. Lab-only Everyone Change is common; workplace version uses a named group.',
+          'Set NTFS Modify for CSS-Users. Map the drive from each client and copy a test file both ways.',
+          'Confirm a standard user cannot change share permissions.',
+        ]
       }
     },
     {
@@ -203,6 +199,13 @@ export default function COC4Modules() {
           'Implement repair procedures',
           'Test the repaired system',
           'Document the repair process'
+        ],
+        faultTrees: [
+          'No POST: check PSU switch, 24-pin, 8-pin CPU, speaker beep, reseat RAM, then minimal boot (CPU, one stick, onboard video).',
+          'No link light: confirm cable test, NIC enabled, correct VLAN/port, then swap NIC or cable.',
+          'IP conflict or APIPA 169.254.x.x: check DHCP, static duplicate, and ipconfig /release /renew.',
+          'Failed restore: verify the backup set, share permissions, and that the restore target is not the same damaged volume.',
+          'Use PPE. Do not force connectors. Replace the failed part, then retest.',
         ]
       }
     },
@@ -226,6 +229,17 @@ export default function COC4Modules() {
           'Update system documentation',
           'Generate performance reports',
           'Maintain documentation accuracy'
+        ],
+        preventivePlan: [
+          'Weekly: dust filters, event logs, backup job success, free disk space.',
+          'Monthly: AV update, Windows Update, UPS test, cable dress, printer consumables.',
+          'Prepare the job: read the service order, check tools (multimeter, tester, ESD strap), wear PPE.',
+        ],
+        sampleReport: [
+          'Date / technician / asset tag / site.',
+          'Symptoms: “Desktop has APIPA, no shared folders.”',
+          'Cause: DHCP scope exhausted. Action: expanded scope 10.0.0.100-200, renewed lease.',
+          'Tests: ping gateway and server OK. Site cleaned. Waste bagged (WEEE). Signed.',
         ]
       }
     }
@@ -511,6 +525,10 @@ export default function COC4Modules() {
                               </div>
                             </div>
                           )}
+                          <ExtraNotes title="File sharing (not only the printer)" items={extraItems(module.practiceContent, 'fileSharing')} />
+                          <ExtraNotes title="Diagnose and rectify" items={extraItems(module.practiceContent, 'faultTrees')} />
+                          <ExtraNotes title="Preventive maintenance plan" items={extraItems(module.practiceContent, 'preventivePlan')} />
+                          <ExtraNotes title="Sample maintenance report" items={extraItems(module.practiceContent, 'sampleReport')} />
                         </div>
                       )}
                     </div>
@@ -520,47 +538,17 @@ export default function COC4Modules() {
             </div>
           ))}
         </div>
+        <ModuleQuiz cocId="coc4" />
       </div>
 
-      {/* Video Modal */}
-      {selectedVideo && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4">
-          <div className="bg-white rounded-lg w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden">
-            <div className="p-3 sm:p-4 border-b border-gray-200">
-              <div className="flex justify-between items-center">
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 pr-2">Module Video Tutorial</h3>
-                <button 
-                  onClick={() => setSelectedVideo(null)}
-                  className="text-gray-500 hover:text-gray-700 flex-shrink-0"
-                >
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div className="p-3 sm:p-4">
-              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full rounded-lg"
-                  src={selectedVideo.includes('youtu.be') 
-                    ? `https://www.youtube.com/embed/${selectedVideo.split('youtu.be/')[1].split('?')[0]}`
-                    : selectedVideo.replace('watch?v=', 'embed/').split('&')[0]
-                  }
-                  title="Module Video Tutorial"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-              <div className="mt-4">
-                <h4 className="font-semibold text-gray-900 mb-2">Video Description:</h4>
-                <p className="text-gray-600">Watch the video tutorial for this module to learn the concepts and procedures.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {selectedVideo ? (
+        <VideoModal
+          url={selectedVideo}
+          title="Module Video Tutorial"
+          description="Watch the video tutorial for this module to learn the concepts and procedures."
+          onClose={() => setSelectedVideo(null)}
+        />
+      ) : null}
     </section>
   )
 } 

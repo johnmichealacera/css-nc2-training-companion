@@ -275,6 +275,26 @@ function onClick(event: MouseEvent) {
     return
   }
 
+  if (itemPath === '/intro') {
+    trackEvent('intro_select', {
+      item_path: itemPath,
+      item_title: linkText(anchor),
+      page_path: pagePath,
+      content_group: group,
+    })
+    return
+  }
+
+  if (itemPath === '/assessment') {
+    trackEvent('assessment_select', {
+      item_path: itemPath,
+      item_title: linkText(anchor),
+      page_path: pagePath,
+      content_group: group,
+    })
+    return
+  }
+
   if (itemPath === '/glossary') {
     trackEvent('glossary_select', {
       item_path: itemPath,

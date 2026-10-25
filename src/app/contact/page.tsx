@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { 
-  ArrowLeft, 
   Mail, 
   Phone, 
   Github, 
@@ -10,6 +9,8 @@ import {
 } from 'lucide-react'
 import Footer from '@/components/Footer'
 import ContactForm from '@/components/ContactForm'
+import PageNav from '@/components/PageNav'
+import { cocNavLinks } from '@/content/program'
 
 export const metadata: Metadata = {
   title: 'Contact Us - CSS NC II Training Companion App',
@@ -42,25 +43,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <Link href="/" className="flex items-center text-gray-600 hover:text-gray-900">
-                <ArrowLeft className="h-5 w-5 mr-2" />
-                Back to Home
-              </Link>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Link href="/coc1" className="text-gray-600 hover:text-gray-900">COC 1</Link>
-              <Link href="/coc2" className="text-gray-600 hover:text-gray-900">COC 2</Link>
-              <Link href="/coc3" className="text-gray-600 hover:text-gray-900">COC 3</Link>
-              <Link href="/coc4" className="text-gray-600 hover:text-gray-900">COC 4</Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <PageNav links={cocNavLinks} />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white">

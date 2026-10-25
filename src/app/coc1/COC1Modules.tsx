@@ -1,6 +1,10 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import ExtraNotes, { extraItems } from '@/components/ExtraNotes'
+import ModuleQuiz from '@/components/ModuleQuiz'
+import VideoModal from '@/components/VideoModal'
+import { useLockBody } from '@/hooks/useLockBody'
 import { 
   Video, 
   FileText,
@@ -13,20 +17,7 @@ import {
 export default function COC1Modules() {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
   const [openPracticeModal, setOpenPracticeModal] = useState<string | null>(null)
-
-  // Lock body scroll when any modal is open
-  useEffect(() => {
-    if (selectedVideo || openPracticeModal) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-
-    // Cleanup function to restore scroll when component unmounts
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [selectedVideo, openPracticeModal])
+  useLockBody(!!selectedVideo || !!openPracticeModal)
 
   const modules = [
     {
@@ -210,6 +201,15 @@ export default function COC1Modules() {
           'Set volume label and ensure "Quick Format" is selected',
           'Click "Start" and wait for completion',
           'Test the bootable USB drive'
+        ],
+        modernNotes: [
+          'Assessment labs often still use MBR + BIOS or UEFI. For a modern UEFI-only PC, use GPT and UEFI in Rufus.',
+          'TR also asks for customized installers and portable apps, not only a full OS USB.',
+        ],
+        portableInstallers: [
+          'Customized installer: slipstream drivers or unattended.xml so the OS installs with the shop defaults.',
+          'Portable apps: copy licensed portable tools (browser, notepad++, antivirus rescue) to a second USB. Do not pirate Office.',
+          'Keep the ISO hash. The assessor may ask how you verified the media.',
         ]
       }
     },
@@ -260,7 +260,18 @@ export default function COC1Modules() {
             'Security',
             'Error detection'
           ]
-        }
+        },
+        driversAndApps: [
+          'Install chipset, LAN, video, audio, then printer and scanner drivers from the vendor or Windows Update.',
+          'Apply OS and driver patches. Record the build number.',
+          'Install productivity software, antivirus, and a virtualization tool (VirtualBox or Hyper-V) if the brief includes them.',
+          'TR range also lists Linux and macOS. Know how a desktop Windows, Linux, or macOS install differs even if the booth uses Windows Server.',
+        ],
+        stressAndDocs: [
+          'Stress-test CPU, GPU, RAM, and disk (Prime95 / FurMark / memtest / CrystalDisk, or the tools the center provides).',
+          'Follow 5S: sort leftover screws, straighten cables, wipe the bench, recycle packaging (3Rs).',
+          'Write the job sheet: parts used, BIOS changes, OS edition, driver versions, test results, and your name.',
+        ]
       }
     }
   ]
@@ -281,8 +292,9 @@ export default function COC1Modules() {
               <h3 className="text-lg font-semibold text-amber-800">Core Assessment Tasks</h3>
             </div>
             <p className="text-amber-700 text-sm">
-              <strong>Task 1:</strong> System Assembly and Disassembly (Module 2) | 
-              <strong> Task 2:</strong> Bootable Media Creation & OS Installation (Modules 3 & 4)
+              <strong>Task 1:</strong> Assembly and BIOS (Module 2) | 
+              <strong> Task 2:</strong> Bootable media and OS (Modules 3–4) | 
+              <strong> Task 3:</strong> Drivers, apps, stress test, and documentation (Module 4)
             </p>
             <p className="text-amber-700 text-xs mt-1">
               These modules will be thoroughly assessed hands-on during your TESDA evaluation.
@@ -371,46 +383,14 @@ export default function COC1Modules() {
                 </div>
               </div>
 
-              {/* Video Modal */}
-              {selectedVideo === module.videoUrl && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4">
-                  <div className="bg-white rounded-lg w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden">
-                    <div className="p-3 sm:p-4 border-b border-gray-200">
-                      <div className="flex justify-between items-center">
-                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 pr-2">{module.title} - Video Tutorial</h3>
-                        <button 
-                          onClick={() => setSelectedVideo(null)}
-                          className="text-gray-500 hover:text-gray-700 flex-shrink-0"
-                        >
-                          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                    <div className="p-3 sm:p-4">
-                      <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-                        <iframe
-                          id={`video-iframe-${module.id}`}
-                          className="absolute top-0 left-0 w-full h-full rounded-lg"
-                          src={module.videoUrl.includes('youtu.be') 
-                            ? `https://www.youtube.com/embed/${module.videoUrl.split('youtu.be/')[1].split('?')[0]}`
-                            : module.videoUrl.replace('watch?v=', 'embed/').split('&')[0]
-                          }
-                          title={`${module.title} Video Tutorial`}
-                          frameBorder="0"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                        ></iframe>
-                      </div>
-                      <div className="mt-4">
-                        <h4 className="font-semibold text-gray-900 mb-2">Video Description:</h4>
-                        <p className="text-gray-600">{module.description}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+              {selectedVideo === module.videoUrl ? (
+                <VideoModal
+                  url={module.videoUrl}
+                  title={`${module.title} - Video Tutorial`}
+                  description={module.description}
+                  onClose={() => setSelectedVideo(null)}
+                />
+              ) : null}
 
               {/* Practice Modal */}
               {openPracticeModal === module.id && (
@@ -656,6 +636,10 @@ export default function COC1Modules() {
                               </div>
                             </div>
                           )}
+                          <ExtraNotes title="Modern media notes" items={extraItems(module.practiceContent, 'modernNotes')} />
+                          <ExtraNotes title="Customized and portable installers" items={extraItems(module.practiceContent, 'portableInstallers')} />
+                          <ExtraNotes title="Drivers, updates, and applications" items={extraItems(module.practiceContent, 'driversAndApps')} />
+                          <ExtraNotes title="Stress test, 5S, and job documentation" items={extraItems(module.practiceContent, 'stressAndDocs')} />
                         </div>
                       )}
                     </div>
@@ -665,6 +649,7 @@ export default function COC1Modules() {
             </div>
           ))}
         </div>
+        <ModuleQuiz cocId="coc1" />
       </div>
     </section>
   )

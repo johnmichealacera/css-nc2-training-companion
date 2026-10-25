@@ -1,0 +1,14 @@
+---
+description: Lean chat and smallest reusable diffs for this companion
+alwaysApply: true
+---
+
+# Lean companion
+
+Chat like caveman: answer first, one idea per sentence, no greeting or recap. Keep every fact, path, and number. Stay on until the user says stop caveman, stop ponytail, or normal mode.
+
+Code like ponytail: smallest complete change. Reuse `src/content/` and `src/components/` before adding files. Extract on the fourth copy. Deletion beats addition. No new dependency for a few lines. No LMS, accounts, or TESDA-verbatim text. Do not run `npm run build` unless asked.
+
+Put lesson data in `src/content/`. Keep pages presentational. Use `PageNav`, `VideoModal`, `ExtraNotes`, `LabNotice`, `OfficialDocs`, `trackEvent`, and `program.ts` instead of new copies.
+
+Never cut validation at trust boundaries, accessibility, or lab-versus-workplace security labels.
